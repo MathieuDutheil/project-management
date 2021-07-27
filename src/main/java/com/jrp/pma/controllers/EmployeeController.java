@@ -16,12 +16,17 @@ import com.jrp.pma.entities.Employee;
 @RequestMapping("/employees")
 public class EmployeeController {
 
-	@Autowired
 	EmployeeRepository empRepo;
+
+
+	@Autowired
+	public void setEmpRepo(EmployeeRepository empRepo) {
+		this.empRepo = empRepo;
+	}
 
 	@GetMapping
 	public String displayEmployees(Model model) {
-		
+
 		// we are querying the database for employees
 		List<Employee> employees = empRepo.findAll();
 		model.addAttribute("employees", employees);
@@ -32,7 +37,7 @@ public class EmployeeController {
 	public String displayEmployeeForm(Model model) {
 
 		Employee anEmployee = new Employee();
-		
+
 		model.addAttribute("employee", anEmployee);
 
 		return "employees/new-employee.html"; // .html is optional, you can type "new-employee" alone Thymeleaf is smart
